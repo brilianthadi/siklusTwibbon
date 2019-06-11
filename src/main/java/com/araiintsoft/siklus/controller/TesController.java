@@ -37,10 +37,17 @@ public class TesController {
         StreamUtils.copy(imgFile.getInputStream(), response.getOutputStream());
     }
 
-    @GetMapping(value = "/udin", produces = MediaType.IMAGE_JPEG_VALUE)
-    public void udin(HttpServletResponse response) throws IOException {
-        ClassPathResource imgFile = new ClassPathResource("image/udin.jpeg");
+    @GetMapping(value = "/img-cluster", produces = MediaType.IMAGE_JPEG_VALUE)
+    public void clusterLogo(HttpServletResponse response) throws IOException {
+        ClassPathResource imgFile = new ClassPathResource("image/cluster.png");
         response.setContentType(MediaType.IMAGE_JPEG_VALUE);
+        StreamUtils.copy(imgFile.getInputStream(), response.getOutputStream());
+    }
+
+    @GetMapping(value = "/img-siklus", produces = MediaType.IMAGE_PNG_VALUE)
+    public void siklusLogo(HttpServletResponse response) throws IOException {
+        ClassPathResource imgFile = new ClassPathResource("image/siklus.png");
+        response.setContentType(MediaType.IMAGE_PNG_VALUE);
         StreamUtils.copy(imgFile.getInputStream(), response.getOutputStream());
     }
 }

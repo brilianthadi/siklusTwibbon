@@ -30,6 +30,12 @@ public class TesController {
         return "twibbon";
     }
 
+    @GetMapping("/")
+    public String home(Model model){
+        model.addAttribute("appName", "siklus");
+        return "twibbon";
+    }
+
     @GetMapping(value = "/img-twibbon", produces = MediaType.IMAGE_PNG_VALUE)
     public void getImage(HttpServletResponse response) throws IOException {
         ClassPathResource imgFile = new ClassPathResource("image/twibbon.png");

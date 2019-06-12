@@ -46,7 +46,7 @@
     var con = white.getContext("2d");
     con.fillStyle = ("#E6E6FA");
     con.fillRect(0,0,250,500);
-    con.fillRect(750,0,250,500)
+    con.fillRect(740,0,250,500)
 
 
     // Set the date we're counting down to

@@ -14,20 +14,22 @@
         <img id="img-twibbon" style="height: 500px; position: absolute; margin-right: auto; margin-left: auto; right: 0; left: 0" src='/img-twibbon' />
         <img id="img-upload" src='' />
     </div>
-    <input id="inputan" type="file" onchange="previewFile()" style="margin-top: 10px"><br>
+    <button id="small" class="arrow-slider" disabled onmousedown="small()" style="margin-right: 50px"><</button>
+    <input id="inputan" type="file" onchange="previewFile()" style="margin-top: 10px">
+    <button id="big" class="arrow-slider" disabled onmousedown="big()" style="margin-left: 50px">></button><br>
     <button id="reset" style="display: none; margin-bottom: 10px" onclick="reloadPage()">Reset</button><br>
     <div class="slidecontainer">
         <input disabled id="scroller" class="slider" type="range" name="points" min="1" max="200" oninput="scale()" style="margin-bottom: 10px">
     </div>
     <div>
-        <button id="up" disabled onmousedown="up()">V</button>
+        <button id="up" class="arrow" disabled onmousedown="up()">V</button>
         <div>
-            <button id="left" disabled onmousedown="left()" style="margin-right: 25px"><</button>
-            <button id="right" disabled onmousedown="right()" style="margin-left: 25px">></button>
+            <button id="left" class="arrow" disabled onmousedown="left()" style="margin-right: 50px"><</button>
+            <button id="right" class="arrow" disabled onmousedown="right()" style="margin-left: 50px">></button>
         </div>
-        <button id="down" disabled onmousedown="down()">V</button>
+        <button id="down" class="arrow" disabled onmousedown="down()">V</button>
     </div>
-    <button disabled id="download" style="margin-top: 10px" onclick="draw()">Download</button>
+    <button disabled id="download" style="margin-top: 10px;height: 50px" onclick="draw()">Download</button>
     <canvas id = "drawing" height="1000" width="1000" style="display: none;">
         <p>Canvas not supported</p>
     </canvas>
@@ -156,10 +158,24 @@
             error = false;
         }
         var heightOld = preview.height;
-        preview.width = widthOri*scroller.value/100;
-        preview.height = heightOri*scroller.value/100;
-        var marginTop = parseFloat(preview.style.marginTop.replace("px",""));
-        preview.style.marginTop = marginTop+(heightOld-preview.height)/2;
+        var widthNew = widthOri*scroller.value/100;
+        var heightNew = heightOri*scroller.value/100;
+        if (!(widthNew>800 || heightNew>800)){
+            preview.width = widthNew;
+            preview.height = heightNew;
+            var marginTop = parseFloat(preview.style.marginTop.replace("px",""));
+            preview.style.marginTop = marginTop+(heightOld-preview.height)/2;
+        }
+    }
+
+    function small(){
+        var scroller = document.getElementById("scroller");
+        scroller.value = scroller.value-10;
+    }
+
+    function big(){
+        var scroller = document.getElementById("scroller");
+        scroller.value = scroller.value+10;
     }
 
     function enableButton(){
@@ -169,6 +185,8 @@
         document.getElementById("right").removeAttribute("disabled");
         document.getElementById("scroller").removeAttribute("disabled");
         document.getElementById("download").removeAttribute("disabled");
+        document.getElementById("small").removeAttribute("disabled");
+        document.getElementById("big").removeAttribute("disabled");
     }
 
     function up(){
@@ -326,5 +344,15 @@
         margin-top: 0px;
         margin-bottom: 10px;
         color: #0c3059
+    }
+
+    .arrow {
+        height: 7%;
+        width: 10%;
+        font-size: 30px;
+    }
+
+    #inputan {
+
     }
 </style>

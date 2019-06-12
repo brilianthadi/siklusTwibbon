@@ -132,9 +132,13 @@
             fixing();
         } else {
             if (preview.width>preview.height) {
+                var widthOld = preview.width;
                 preview.width = 500*scroller.value/100;
+                preview.height = preview.height*(preview.width/widthOld);
             } else {
+                var heightOld = preview.height;
                 preview.height = 500*scroller.value/100;
+                preview.width = preview.width*(preview.height/heightOld);
             }
             preview.style.marginTop = (500-preview.height)/2;
         }
@@ -152,18 +156,21 @@
     function fixing(){
         var preview = document.getElementById("img-upload"); //selects the query named img
         var height = preview.height;
+        var heightOld = height;
         var width = preview.width;
+        var widthOld = width;
         if (width>height) {
             width = 500;
-            preview.width = width;
+            height = height*(width/widthOld);
             preview.style.marginTop = (500-preview.height)/2;
-            preview.style.marginLeft = 0;
         } else if(height>width ) {
             height = 500;
-            preview.height = height;
-            preview.style.marginLeft = 0;
+            width = width*(height/heightOld);
             preview.style.marginTop = 0;
         }
+        preview.width = width;
+        preview.height = height;
+        preview.style.marginLeft = 0;
         error = false;
     }
 

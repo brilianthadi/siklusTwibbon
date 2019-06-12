@@ -3,9 +3,9 @@
     <title>Siklus 2.0 | Cluster</title>
     <link rel="icon" type="image/png" href="/img-siklus" />
 </head>
-<body>
+<body bgcolor="#E6E6FA">
 <div style="text-align: center">
-    <h1 style="color: #0c3059; margin-bottom: 0px">Twibbon Siklus 2.0</h1>
+    <h1 style="color: #0c3059; margin-bottom: 0px">Siklus 2.0</h1>
     <p id="countdown"></p>
     <canvas id = "white" height="500" width="1000" style="position: absolute; margin-right: auto; margin-left: auto; right: 0; left: 0">
         <p>Canvas not supported</p>
@@ -37,10 +37,12 @@
 </html>
 
 <script>
+    var heightOri = 1;
+    var widthOri = 1;
     var error = false;
     var white = document.getElementById("white");
     var con = white.getContext("2d");
-    con.fillStyle = ("#ffffff");
+    con.fillStyle = ("#E6E6FA");
     con.fillRect(0,0,250,500);
     con.fillRect(750,0,250,500)
 
@@ -103,10 +105,6 @@
         var inputan = document.getElementById("inputan");
         var height = preview.height;
         var width = preview.width;
-        console.log(width+" "+height);
-        if (height==0 || width==0) {
-            error = true;
-        }
         if (width>height) {
             width = 500;
             preview.width = width;
@@ -118,14 +116,19 @@
             preview.style.marginLeft = 0;
             preview.style.marginTop = 0;
         }
-        console.log(preview.width+" "+preview.height);
+        if (height==0 || width==0) {
+            error = true;
+        } else {
+            widthOri = preview.width;
+            heightOri = preview.height;
+        }
         scroller.value = 100;
         inputan.style.display = "none";
         reset.style.display = "inline-block";
         enableButton();
     }
 
-    function scale(){
+    function scaleOld(){
         var scroller = document.getElementById("scroller");
         var preview = document.getElementById("img-upload");
         if (error) {
@@ -144,6 +147,21 @@
         }
     }
 
+    function scale(){
+        var scroller = document.getElementById("scroller");
+        var preview = document.getElementById("img-upload");
+        if (error) {
+            heightOri = preview.height;
+            widthOri = preview.width;
+            error = false;
+        }
+        var heightOld = preview.height;
+        preview.width = widthOri*scroller.value/100;
+        preview.height = heightOri*scroller.value/100;
+        var marginTop = parseFloat(preview.style.marginTop.replace("px",""));
+        preview.style.marginTop = marginTop+(heightOld-preview.height)/2;
+    }
+
     function enableButton(){
         document.getElementById("up").removeAttribute("disabled");
         document.getElementById("down").removeAttribute("disabled");
@@ -151,27 +169,6 @@
         document.getElementById("right").removeAttribute("disabled");
         document.getElementById("scroller").removeAttribute("disabled");
         document.getElementById("download").removeAttribute("disabled");
-    }
-
-    function fixing(){
-        var preview = document.getElementById("img-upload"); //selects the query named img
-        var height = preview.height;
-        var heightOld = height;
-        var width = preview.width;
-        var widthOld = width;
-        if (width>height) {
-            width = 500;
-            height = height*(width/widthOld);
-            preview.style.marginTop = (500-preview.height)/2;
-        } else if(height>width ) {
-            height = 500;
-            width = width*(height/heightOld);
-            preview.style.marginTop = 0;
-        }
-        preview.width = width;
-        preview.height = height;
-        preview.style.marginLeft = 0;
-        error = false;
     }
 
     function up(){
@@ -194,9 +191,7 @@
         var preview = document.getElementById("img-upload");
         var marginTop = preview.style.marginTop.replace("px","");
         var marginLeft = preview.style.marginLeft.replace("px","");
-        if (error){
-            fixing();
-        } else if (direction=="up") {
+        if (direction=="up") {
             preview.style.marginTop = parseFloat(marginTop)-5;
         } else if(direction=="down"){
             preview.style.marginTop = parseFloat(marginTop)+5;
@@ -288,7 +283,7 @@
         width: 450px;
         height: 15px;
         border-radius: 5px;
-        background: #d3d3d3;
+        background: #bdbdbd;
         outline: none;
         opacity: 0.7;
         -webkit-transition: .2s;

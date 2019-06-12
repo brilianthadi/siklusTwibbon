@@ -160,7 +160,7 @@
         var heightOld = preview.height;
         var widthNew = widthOri*scroller.value/100;
         var heightNew = heightOri*scroller.value/100;
-        if (!(widthNew>800 || heightNew>800)){
+        if (!(widthNew>1000 || heightNew>800)){
             preview.width = widthNew;
             preview.height = heightNew;
             var marginTop = parseFloat(preview.style.marginTop.replace("px",""));

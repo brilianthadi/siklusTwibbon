@@ -3,7 +3,7 @@
     <title>Siklus 2.0 | Cluster</title>
     <link rel="icon" type="image/png" href="/img-siklus" />
 </head>
-<body bgcolor="#E6E6FA">
+<body bgcolor="#E6E6FA" >
 <div style="text-align: center">
     <h1 style="color: #0c3059; margin-bottom: 0px">Siklus 2.0</h1>
     <p id="countdown"></p>
@@ -14,12 +14,12 @@
         <img id="img-twibbon" style="height: 500px; position: absolute; margin-right: auto; margin-left: auto; right: 0; left: 0" src='/img-twibbon' />
         <img id="img-upload" src='' />
     </div>
-    <button id="small" class="arrow-slider" disabled onmousedown="small()" style="margin-right: 50px"><</button>
     <input id="inputan" type="file" onchange="previewFile()" style="margin-top: 10px">
-    <button id="big" class="arrow-slider" disabled onmousedown="big()" style="margin-left: 50px">></button><br>
     <button id="reset" style="display: none; margin-bottom: 10px" onclick="reloadPage()">Reset</button><br>
     <div class="slidecontainer">
+        <button id="small" class="arrow-slider" disabled onclick="small()" style="margin-right: 50px"><</button>
         <input disabled id="scroller" class="slider" type="range" name="points" min="1" max="200" oninput="scale()" style="margin-bottom: 10px">
+        <button id="big" class="arrow-slider" disabled onclick="big()" style="margin-left: 50px">></button>
     </div>
     <div>
         <button id="up" class="arrow" disabled onmousedown="up()">V</button>
@@ -170,12 +170,14 @@
 
     function small(){
         var scroller = document.getElementById("scroller");
-        scroller.value = scroller.value-10;
+        scroller.value = parseInt(scroller.value)-10;
+        scale();
     }
 
     function big(){
         var scroller = document.getElementById("scroller");
-        scroller.value = scroller.value+10;
+        scroller.value = parseInt(scroller.value)+10;
+        scale();
     }
 
     function enableButton(){
